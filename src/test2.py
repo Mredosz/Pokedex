@@ -17,7 +17,7 @@ val_dir = "../data/resnet/val"
 # Parametry
 batch_size = 16
 num_classes = len(os.listdir(train_dir))
-num_epochs = 10
+num_epochs = 30
 learning_rate = 0.001
 
 # Transformacje obrazów
