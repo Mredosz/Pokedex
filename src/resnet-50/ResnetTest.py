@@ -11,7 +11,7 @@ from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
 import numpy
 device = torch.device('cuda')
-train_dir = "../data/resnet/train"
+train_dir = "../../data/resnet/train"
 
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
@@ -39,6 +39,6 @@ def predict_image(image_path):
         _, predicted = torch.max(outputs, 1)
     return train_dataset.classes[predicted.item()]
 
-image_path = "../data/images/Dugtrio/0c5f972fb2c64e7f8468ef44c98ff3e5.jpg"
+image_path = "C:/Users/mredo/Downloads/Charizard%2C_the_Flame_Pokemon.png"
 predicted_class = predict_image(image_path)
 print(f"Predicted Pokémon: {predicted_class}")

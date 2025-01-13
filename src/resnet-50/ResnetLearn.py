@@ -10,8 +10,8 @@ from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
 import numpy
 
-train_dir = "../data/resnet/train"
-val_dir = "../data/resnet/val"
+train_dir = "../../data/resnet/train"
+val_dir = "../../data/resnet/val"
 
 batch_size = 16
 num_classes = len(os.listdir(train_dir))
