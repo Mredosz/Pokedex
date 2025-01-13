@@ -11,7 +11,6 @@ from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
 import numpy
 device = torch.device('cuda')
-# Tworzenie nowej instancji modelu
 train_dir = "../data/resnet/train"
 
 transform = transforms.Compose([
@@ -23,13 +22,11 @@ transform = transforms.Compose([
 train_dataset = datasets.ImageFolder(train_dir, transform=transform)
 
 
-model = models.resnet50(weights=None)  # Nie ładuj pretrenowanych wag
-model.fc = nn.Linear(model.fc.in_features, len(os.listdir(train_dir)))  # Dostosowanie liczby klas
+model = models.resnet50(weights=None)
+model.fc = nn.Linear(model.fc.in_features, len(os.listdir(train_dir)))
 
-# Wczytaj zapisane wagi modelu
 model.load_state_dict(torch.load("resnet50_pokemon.pth", map_location=device))
 
-# Ustaw model w tryb oceny
 model = model.to(device)
 model.eval()
 
@@ -42,7 +39,6 @@ def predict_image(image_path):
         _, predicted = torch.max(outputs, 1)
     return train_dataset.classes[predicted.item()]
 
-# Przykład użycia
 image_path = "../data/images/Dugtrio/0c5f972fb2c64e7f8468ef44c98ff3e5.jpg"
 predicted_class = predict_image(image_path)
 print(f"Predicted Pokémon: {predicted_class}")

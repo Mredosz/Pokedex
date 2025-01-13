@@ -10,41 +10,34 @@ from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
 import numpy
 
-# Ścieżki do danych
 train_dir = "../data/resnet/train"
 val_dir = "../data/resnet/val"
 
-# Parametry
 batch_size = 16
 num_classes = len(os.listdir(train_dir))
 num_epochs = 30
 learning_rate = 0.001
 
-# Transformacje obrazów
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])
 
-# Wczytanie danych
 train_dataset = datasets.ImageFolder(train_dir, transform=transform)
 val_dataset = datasets.ImageFolder(val_dir, transform=transform)
 
 train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
 
-# Model ResNet-50
 model = models.resnet50(pretrained=True)
-model.fc = nn.Linear(model.fc.in_features, num_classes)  # Dostosowanie do liczby klas
+model.fc = nn.Linear(model.fc.in_features, num_classes)
 
-# Ustawienia treningu
 device = torch.device('cuda')
 model = model.to(device)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
-# Trenowanie modelu
 train_loss_history = []
 val_loss_history = []
 
@@ -63,7 +56,6 @@ for epoch in range(num_epochs):
     train_loss /= len(train_loader.dataset)
     train_loss_history.append(train_loss)
 
-    # Walidacja
     model.eval()
     val_loss = 0.0
     val_predictions = []
@@ -85,10 +77,8 @@ for epoch in range(num_epochs):
     print(
         f"Epoch {epoch + 1}/{num_epochs}, Train Loss: {train_loss:.4f}, Val Loss: {val_loss:.4f}, Val Acc: {val_acc:.4f}")
 
-# Zapisz model
 torch.save(model.state_dict(), "resnet50_pokemon.pth")
 
-# Wyświetlanie historii strat
 plt.plot(train_loss_history, label='Train Loss')
 plt.plot(val_loss_history, label='Val Loss')
 plt.xlabel('Epoch')
