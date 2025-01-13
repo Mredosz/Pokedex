@@ -21,9 +21,9 @@ def load_model_and_predict(image_path, model_path, feature_extractor_path):
     return pokemon_name
 
 
-image_path = "../data/images/Dugtrio/0c5f972fb2c64e7f8468ef44c98ff3e5.jpg"
+image_path = "../../data/images/Dugtrio/0c5f972fb2c64e7f8468ef44c98ff3e5.jpg"
 
-model_path = "./results/checkpoint-1011"
+model_path = "../results/checkpoint-1011"
 feature_extractor_path = 'google/vit-base-patch16-224'
 
 pokemon_name = load_model_and_predict(image_path, model_path, feature_extractor_path)

@@ -3,7 +3,7 @@ from datasets import load_dataset
 import torch
 from PIL import Image
 
-dataset = load_dataset("imagefolder", data_dir="../data/resnet")
+dataset = load_dataset("imagefolder", data_dir="../../data/resnet")
 device = torch.device('cuda')
 
 feature_extractor = ViTImageProcessor.from_pretrained('google/vit-base-patch16-224')
@@ -37,7 +37,7 @@ def preprocess_images(example):
 dataset = dataset.map(preprocess_images, batched=False)
 
 training_args = TrainingArguments(
-    output_dir="./results",
+    output_dir="../results",
     evaluation_strategy="epoch",
     save_strategy="epoch",
     learning_rate=0.001,
