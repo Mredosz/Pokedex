@@ -39,6 +39,6 @@ def predict_image(image_path):
         _, predicted = torch.max(outputs, 1)
     return train_dataset.classes[predicted.item()]
 
-image_path = "C:/Users/mredo/Downloads/Charizard%2C_the_Flame_Pokemon.png"
+image_path = "../../data/testing-images/magikarp.jpg"
 predicted_class = predict_image(image_path)
 print(f"Predicted Pokémon: {predicted_class}")

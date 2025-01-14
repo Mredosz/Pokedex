@@ -12,7 +12,7 @@ val_dir = "../../data/resnet/val"
 
 batch_size = 16
 num_classes = len(os.listdir(train_dir))
-num_epochs = 1
+num_epochs = 30
 learning_rate = 0.001
 
 transform = transforms.Compose([
@@ -27,7 +27,7 @@ val_dataset = datasets.ImageFolder(val_dir, transform=transform)
 train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cuda')
 
 dataset = load_dataset("imagefolder", data_dir="../../data/resnet")
 

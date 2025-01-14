@@ -21,9 +21,9 @@ def load_model_and_predict(image_path, model_path, feature_extractor_path):
     return pokemon_name
 
 
-image_path = "C:/Users/mredo/Downloads/Charizard%2C_the_Flame_Pokemon.png"
+image_path = "../../data/testing-images/magikarp.jpg"
 
-model_path = "results/checkpoint-1011"
+model_path = "results/checkpoint-10110"
 feature_extractor_path = 'google/vit-base-patch16-224'
 
 pokemon_name = load_model_and_predict(image_path, model_path, feature_extractor_path)
