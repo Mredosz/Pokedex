@@ -6,8 +6,8 @@ import torch
 from torch import optim
 import os
 
-train_dir = "../../data/resnet/train"
-val_dir = "../../data/resnet/val"
+train_dir = "../../data/images/train"
+val_dir = "../../data/images/val"
 
 batch_size = 16
 num_classes = len(os.listdir(train_dir))

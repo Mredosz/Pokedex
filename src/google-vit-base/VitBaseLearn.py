@@ -7,8 +7,8 @@ import torch
 from PIL import Image
 import torch.nn as nn
 
-train_dir = "../../data/resnet/train"
-val_dir = "../../data/resnet/val"
+train_dir = "../../data/images/train"
+val_dir = "../../data/images/val"
 
 batch_size = 16
 num_classes = len(os.listdir(train_dir))
@@ -29,7 +29,7 @@ val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
 
 device = torch.device('cuda')
 
-dataset = load_dataset("imagefolder", data_dir="../../data/resnet")
+dataset = load_dataset("imagefolder", data_dir="../../data/images")
 
 feature_extractor = ViTImageProcessor.from_pretrained('google/vit-base-patch16-224')
 model = ViTForImageClassification.from_pretrained(
