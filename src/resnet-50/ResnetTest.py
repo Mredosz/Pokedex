@@ -11,7 +11,7 @@ from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
 import numpy
 device = torch.device('cuda')
-train_dir = "../../data/resnet/train"
+train_dir = "../../data/images/train"
 
 transform = transforms.Compose([
     transforms.Resize((224, 224)),

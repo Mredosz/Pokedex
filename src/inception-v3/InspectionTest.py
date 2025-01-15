@@ -33,7 +33,7 @@ def load_model_and_predict(image_path, model_path, num_classes):
     return pokemon_name
 
 
-train_dataset = datasets.ImageFolder(root='../../data/resnet/train', transform=transforms.ToTensor())
+train_dataset = datasets.ImageFolder(root='../../data/images/train', transform=transforms.ToTensor())
 image_path = "C:/Users/mredo/Downloads/Charizard%2C_the_Flame_Pokemon.png"
 model_path = "inception_v3_pokemon_model.pth"
 num_classes = len(train_dataset.classes)
