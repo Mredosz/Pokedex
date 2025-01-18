@@ -1,8 +1,15 @@
 from transformers import ViTForImageClassification, ViTImageProcessor
 from PIL import Image
 import torch
+import sys
+from pathlib import Path
+sys.stdout.reconfigure(encoding='utf-8')
 
-def load_model_and_predict(image_path, model_path, feature_extractor_path):
+def predict_image(image_path):
+    project_dir = Path(__file__).resolve().parents[2]
+
+    model_path = project_dir / "src" / "google_vit_base" / "results" / "checkpoint-10110"
+    feature_extractor_path = 'google/vit-base-patch16-224'
     feature_extractor = ViTImageProcessor.from_pretrained(feature_extractor_path)
 
     model = ViTForImageClassification.from_pretrained(model_path)
@@ -17,13 +24,4 @@ def load_model_and_predict(image_path, model_path, feature_extractor_path):
     predicted_class = outputs.logits.argmax(dim=-1).item()
     pokemon_name = model.config.id2label[predicted_class]
 
-    print(f"Predicted Pokémon: {pokemon_name}")
     return pokemon_name
-
-
-image_path = "../../data/testing-images/magikarp.jpg"
-
-model_path = "results/checkpoint-10110"
-feature_extractor_path = 'google/vit-base-patch16-224'
-
-pokemon_name = load_model_and_predict(image_path, model_path, feature_extractor_path)

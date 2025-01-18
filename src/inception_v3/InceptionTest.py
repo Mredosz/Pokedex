@@ -3,10 +3,19 @@ import torch
 from torchvision import transforms
 from PIL import Image
 from torchvision import datasets
-import torch.nn as nn
+from pathlib import Path
+import sys
+sys.stdout.reconfigure(encoding='utf-8')
 
+def predict_image(image_path):
+    project_dir = Path(__file__).resolve().parents[2]
 
-def load_model_and_predict(image_path, model_path, num_classes):
+    train_dataset_path = project_dir / "data" / "images" / "train"
+    model_path = project_dir / "src" / "inception_v3" / "inception_v3_pokemon_model.pth"
+
+    train_dataset = datasets.ImageFolder(root=train_dataset_path, transform=transforms.ToTensor())
+    num_classes = len(train_dataset.classes)
+
     transform = transforms.Compose([
         transforms.Resize((299, 299)),
         transforms.ToTensor(),
@@ -29,13 +38,4 @@ def load_model_and_predict(image_path, model_path, num_classes):
     class_names = train_dataset.classes
     pokemon_name = class_names[predicted_class]
 
-    print(f"Predicted Pokémon: {pokemon_name}")
     return pokemon_name
-
-
-train_dataset = datasets.ImageFolder(root='../../data/images/train', transform=transforms.ToTensor())
-image_path = "C:/Users/mredo/Downloads/Charizard%2C_the_Flame_Pokemon.png"
-model_path = "inception_v3_pokemon_model.pth"
-num_classes = len(train_dataset.classes)
-
-pokemon_name = load_model_and_predict(image_path, model_path, num_classes)
