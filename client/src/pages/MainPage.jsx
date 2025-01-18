@@ -76,15 +76,29 @@ return (
       </p>
     )}
     {mutation.data && (
-      <div className="bg-gray-800 shadow-lg rounded-lg p-6 mt-6 w-full max-w-md">
-        <h2 className="text-2xl font-bold text-white mb-4">
-          Prediction Result
-        </h2>
-        <pre className="bg-gray-700 p-4 rounded-lg text-white">
-          {JSON.stringify(mutation.data, null, 2)}
-        </pre>
-      </div>
-    )}
+  <div className="bg-gray-800 shadow-lg rounded-lg p-6 mt-6 w-full max-w-md">
+    <h2 className="text-2xl font-bold text-white mb-4">Prediction Result</h2>
+    <table className="w-full text-white text-left border-collapse">
+      <thead>
+        <tr className="border-b border-gray-600">
+          <th className="py-2 px-4">Model</th>
+          <th className="py-2 px-4">Prediction</th>
+        </tr>
+      </thead>
+      <tbody>
+        {Object.entries(mutation.data).map(([model, result], index) => (
+          <tr
+            key={model}
+            className={index % 2 === 0 ? "bg-gray-700" : "bg-gray-800"}
+          >
+            <td className="py-2 px-4 font-medium">{model}</td>
+            <td className="py-2 px-4">{result}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+)}
 
     {metricsLoading && (
       <p className="text-blue-400 font-medium mt-4">Loading metrics...</p>
@@ -93,13 +107,36 @@ return (
       <p className="text-red-400 font-medium mt-4">Error fetching metrics</p>
     )}
     {metricsData && (
-      <div className="bg-gray-800 shadow-lg rounded-lg p-6 mt-6 w-full max-w-md">
-        <h2 className="text-2xl font-bold text-white mb-4">Metrics Data</h2>
-        <pre className="bg-gray-700 p-4 rounded-lg text-white">
-          {JSON.stringify(metricsData, null, 2)}
-        </pre>
-      </div>
-    )}
+  <div className="bg-gray-800 shadow-lg rounded-lg p-6 mt-6 w-full max-w-lg">
+    <h2 className="text-2xl font-bold text-white mb-4">Metrics Data</h2>
+    <table className="w-full text-white text-left border-collapse">
+      <thead>
+        <tr className="border-b border-gray-600">
+          <th className="py-2 px-4">Model</th>
+          <th className="py-2 px-4">Accuracy</th>
+          <th className="py-2 px-4">Precision</th>
+          <th className="py-2 px-4">Recall</th>
+          <th className="py-2 px-4">F1-Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        {Object.entries(metricsData).map(([model, metrics], index) => (
+          <tr
+            key={model}
+            className={index % 2 === 0 ? "bg-gray-700" : "bg-gray-800"}
+          >
+            <td className="py-2 px-4 font-medium">{model.replace(/_/g, " ")}</td>
+            <td className="py-2 px-4">{metrics.Accuracy}</td>
+            <td className="py-2 px-4">{metrics.Precision}</td>
+            <td className="py-2 px-4">{metrics.Recall}</td>
+            <td className="py-2 px-4">{metrics["F1-score"]}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+)}
+
   </div>
 );
 
