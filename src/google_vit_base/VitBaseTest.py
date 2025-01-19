@@ -12,16 +12,24 @@ def predict_image(image_path):
     feature_extractor_path = 'google/vit-base-patch16-224'
     feature_extractor = ViTImageProcessor.from_pretrained(feature_extractor_path)
 
+    # Load the fine-tuned ViT model
     model = ViTForImageClassification.from_pretrained(model_path)
-    model.eval()
+    model.eval()  # Set the model to evaluation mode to disable dropout and other training-specific behaviors
+
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
 
+    # Open the image, convert to RGB format (ensures compatibility with the model)
     image = Image.open(image_path).convert("RGB")
+
+    # Preprocess the image using the feature extractor and move it to the device
     inputs = feature_extractor(images=image, return_tensors="pt").to(device)
 
-    outputs = model(**inputs)
-    predicted_class = outputs.logits.argmax(dim=-1).item()
+    # Perform inference
+    outputs = model(**inputs)  # Forward pass through the model
+    predicted_class = outputs.logits.argmax(dim=-1).item()  # Get the class index with the highest score
+
+    # Map the predicted class index to the corresponding label (e.g., Pokémon name)
     pokemon_name = model.config.id2label[predicted_class]
 
     return pokemon_name

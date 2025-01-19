@@ -6,23 +6,23 @@ def evaluate_model(dataset_dir, output_file):
     true_labels = []
     predicted_labels = []
 
-    print("Model evaluation started...")
+    print("Starting model evaluation...")
 
-    dataset_dir = Path(dataset_dir)
-    total_classes = len([d for d in dataset_dir.iterdir() if d.is_dir()])
+    dataset_dir = Path(dataset_dir)  # Convert dataset directory to a Path object for easier file handling
+    total_classes = len([d for d in dataset_dir.iterdir() if d.is_dir()])  # Count the number of subdirectories (classes)
     processed_classes = 0
 
     for class_dir in dataset_dir.iterdir():
-        if class_dir.is_dir():
-            true_class = class_dir.name.lower()
+        if class_dir.is_dir():  # Ensure it's a directory (ignore files or unexpected items)
+            true_class = class_dir.name.lower()  # Get the class name (folder name) and convert to lowercase
             print(f"Processing class: {true_class}...")
 
             for image_file in class_dir.iterdir():
-                if image_file.suffix in [".jpg", ".png"]:
-                    predicted_class = predict_image(image_file).lower()
+                if image_file.suffix in [".jpg", ".png"]:  # Process only image files with specified extensions
+                    predicted_class = predict_image(image_file).lower()  # Predict the class and normalize to lowercase
 
-                    true_labels.append(true_class)
-                    predicted_labels.append(predicted_class)
+                    true_labels.append(true_class)  # Append the true class label
+                    predicted_labels.append(predicted_class)  # Append the predicted class label
 
             processed_classes += 1
             print(f"Progress: {processed_classes}/{total_classes} classes processed.")
