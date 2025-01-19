@@ -49,6 +49,10 @@ The **Pokémon Classification Project** is designed to classify images of Pokém
      - Precision: **0.72**
      - Recall: **0.48**
      - F1-score: **0.56**
+       
+### Model Size Limitation
+
+The trained Vit Base model weighs approximately 900 MB, which exceeds the file size limit for GitHub. As a result, we are unable to upload it directly to the repository.
 
 ---
 
