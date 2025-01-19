@@ -1,6 +1,6 @@
 from google_vit_base.VitBaseTest import predict_image as predict_vit
 
 
-print(predict_vit("../data/testing-images/pikachu.jpg"))
-print(predict_vit("../data/testing-images/magikarp.jpg"))
-print(predict_vit("../data/testing-images/gengar.jpg"))
+print("Pikachu: " + predict_vit("../data/testing-images/pikachu.jpg"))
+print("Gligar: " + predict_vit("../data/testing-images/gligar.jpg"))
+print("Mr Fresh: " + predict_vit("../data/testing-images/mrfresh.jpg"))
