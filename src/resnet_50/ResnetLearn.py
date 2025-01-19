@@ -33,7 +33,7 @@ val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
 model = models.resnet50(pretrained=True)
 model.fc = nn.Linear(model.fc.in_features, num_classes)
 
-device = torch.device('cuda')
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = model.to(device)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=learning_rate)

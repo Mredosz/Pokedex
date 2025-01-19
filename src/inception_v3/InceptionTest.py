@@ -22,10 +22,10 @@ def predict_image(image_path):
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     ])
 
-    device = torch.device('cuda')
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     model = timm.create_model('inception_v3', pretrained=False, num_classes=num_classes)
-    model.load_state_dict(torch.load(model_path))
+    model.load_state_dict(torch.load(model_path, map_location=device, weights_only=True))
     model.to(device).eval()
 
     image = Image.open(image_path).convert("RGB")

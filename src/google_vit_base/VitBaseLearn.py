@@ -27,7 +27,7 @@ val_dataset = datasets.ImageFolder(val_dir, transform=transform)
 train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
 
-device = torch.device('cuda')
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 dataset = load_dataset("imagefolder", data_dir="../../data/images")
 

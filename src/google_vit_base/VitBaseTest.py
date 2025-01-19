@@ -14,7 +14,7 @@ def predict_image(image_path):
 
     model = ViTForImageClassification.from_pretrained(model_path)
     model.eval()
-    device = torch.device('cuda')
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
 
     image = Image.open(image_path).convert("RGB")

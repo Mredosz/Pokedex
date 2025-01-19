@@ -11,7 +11,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 def predict_image(image_path):
     project_dir = Path(__file__).resolve().parents[2]
 
-    device = torch.device('cuda')
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     train_dir = project_dir / "data" / "images" / "train"
     model_dir = project_dir / "src" / "resnet_50" / "resnet50_pokemon.pth"
 
@@ -26,7 +26,7 @@ def predict_image(image_path):
     model = models.resnet50(weights=None)
     model.fc = nn.Linear(model.fc.in_features, len(os.listdir(train_dir)))
 
-    model.load_state_dict(torch.load(model_dir, map_location=device))
+    model.load_state_dict(torch.load(model_dir, map_location=device, weights_only=True))
 
     model = model.to(device)
     model.eval()
