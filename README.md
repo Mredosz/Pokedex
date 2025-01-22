@@ -121,3 +121,20 @@ Frontend uses React Vite
     Frontend will be running at `http://localhost:5173`.
 
 ---
+
+## VitBase Setup
+
+Run VitBase predict
+
+1. **Navigate to src folder:**
+
+   ```sh
+   cd src
+   ```
+   
+2. **Run the file:**
+
+    ```sh
+   python VitBasePredict.py
+   ```
+
